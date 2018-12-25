@@ -2,8 +2,9 @@
 - name: Add DSC modules
   hosts: all
   tasks:
-    - win_psmodule:
-        - name: ComputerManagementDsc
-          url: 'http://192.168.0.180:8081/repository/powershell/'
-          repository: 'LocalRepository'
-          state: present
+  - name: Install ComputerManagementDsc module
+    win_psmodule:
+      name: ComputerManagementDsc
+      url: 'http://192.168.0.180:8081/repository/powershell/'
+      repository: 'LocalRepository'
+      state: present
