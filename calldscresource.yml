@@ -26,4 +26,6 @@
   - name: Run DSC resource
     win_dsc:
         resource_name: mtxBaseServerConfig # required. The name of the DSC Resource to use.,Must be accessible to PowerShell using any of the default paths.
+        ensure: present
+        name: Install server
         #module_version: latest 
