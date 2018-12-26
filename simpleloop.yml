@@ -3,6 +3,9 @@
   hosts: all
   gather_facts: no
   tasks:
+#  necessary because of https://github.com/ansible/ansible/issues/50332
+  - name: Enable Nuget
+    win_shell: Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Force
 
   - name: Install PSGallery modules
     win_psmodule:
