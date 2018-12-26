@@ -1,9 +1,11 @@
 ---
 - name: Add DSC modules
   hosts: all
+  gather_facts: no
   tasks:
-  - name: Enable Nuget
-    win_shell: Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Force
+# shouldn't be necessary as already in win_psmodule code
+#  - name: Enable Nuget
+#    win_shell: Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Force
   
   - name: Install ComputerManagementDsc
     win_psmodule:
@@ -11,3 +13,5 @@
       url: 'http://192.168.0.180:8081/repository/powershell/'
       repository: 'LocalRepository'
       state: present
+      
+      
