@@ -1,0 +1,30 @@
+---
+- name: Add DSC modules
+  hosts: all
+  gather_facts: no
+  tasks:
+#  necessary because of https://github.com/ansible/ansible/issues/50332
+  - name: Enable Nuget
+    win_shell: Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Force
+
+  - name: Install PSGallery modules
+    win_psmodule:
+      name: "{{ item }}"
+      url: 'http://192.168.0.180:8081/repository/powershell/'
+      repository: 'LocalRepository'
+      state: present
+    loop:
+      - ComputerManagementDsc
+      - NetworkingDsc
+      - xRemoteDesktopAdmin
+      - CertificateDsc
+      - xActiveDirectory
+      - xPendingReboot
+      - WSManDsc
+      - mtxServerConfig
+
+  - name: Run DSC resource
+    win_dsc:
+        free_form: 
+        resource_name: mtxBaseServerConfig # required. The name of the DSC Resource to use.,Must be accessible to PowerShell using any of the default paths.
+        #module_version: latest 
