@@ -11,20 +11,21 @@
     - 'C:\Services\'
     - 'C:\Services(x86)\'
 
-- name: Enable and copy dedicated ACE's
+- name: Disable inheritence and remove ACE's
   win_acl_inheritance:
     path: C:\Admin
     state: absent
-    # no - would remove the ACE
-    reorganize: yes
+    reorganize: no # yes - would copy the ACE
 
-- name: Remove read access to admin folder for local users
+- name: Allow only built in admins & system (this causes fun with UAC)
   win_acl:
     path: C:\Admin
-    user: BUILTIN\Users
-    rights: Read
-    type: allow
-    state: absent
+    user: "{{ item.user }}"
+    rights: "{{ item.rights }}"
+    type: allow # or deny
+  loop:
+    - { user: 'NTAUTHORITY\SYSTEM', rights: 'FullControl'}
+    - { user: 'BUILTIN\Administrators', rights: 'FullControl'}
 
 - name: Set performance plan to High
   win_power_plan:
