@@ -14,8 +14,8 @@
 - name: Enable and remove dedicated ACE's
   win_acl_inheritance:
     path: C:\Admin
-    state: present
-    reorganize: yes
+    state: absent
+    reorganize: no
 
 - name: Add FullControl to admin folder for local admins
   win_acl:
@@ -50,6 +50,8 @@
     Key: HKEY_CURRENT_USER\ExampleKey
     ValueName: TestValue
     ValueData: TestData
+    # the two vars ansible_user and ansible_password correspond to the credentials
+    # used by tower to run the playbook.
     PsDscRunAsCredential_username: '{{ ansible_user }}'
     PsDscRunAsCredential_password: '{{ ansible_password }}'
   no_log: yes
