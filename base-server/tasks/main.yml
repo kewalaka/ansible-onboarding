@@ -57,4 +57,5 @@
     # used by tower to run the playbook.
     PsDscRunAsCredential_username: '{{ ansible_user }}'
     PsDscRunAsCredential_password: '{{ ansible_password }}'
-  no_log: yes
+  # should usually set this - but want to see what credentials were used
+  #no_log: yes
