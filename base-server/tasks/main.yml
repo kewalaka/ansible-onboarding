@@ -11,10 +11,11 @@
     - 'C:\Services\'
     - 'C:\Services(x86)\'
 
-- name: Enable and remove dedicated ACE's
+- name: Enable and copy dedicated ACE's
   win_acl_inheritance:
     path: C:\Admin
     state: absent
+    # no - would remove the ACE
     reorganize: yes
 
 - name: Remove read access to admin folder for local users
@@ -22,7 +23,8 @@
     path: C:\Admin
     user: BUILTIN\Users
     rights: Read
-    type: absent
+    type: allow
+    state: absent
 
 - name: Set performance plan to High
   win_power_plan:
