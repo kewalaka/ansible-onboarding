@@ -23,6 +23,11 @@
       - WSManDsc
       - mtxServerConfig
 
+
+  ## lesson for the foolish - can't use composite resources because the Ansible win_dsc resource calls Invoke-DscResource
+  ## https://docs.microsoft.com/en-us/powershell/dsc/managing-nodes/directcallresource
+  ## (as does Chef/Puppet et al, not an Ansible thing)
+  ## 
   - name: Run DSC resource
     win_dsc:
         resource_name: mtxBaseServerConfig # required. The name of the DSC Resource to use.,Must be accessible to PowerShell using any of the default paths.

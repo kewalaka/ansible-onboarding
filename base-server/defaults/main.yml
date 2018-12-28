@@ -1,0 +1,14 @@
+---
+#
+# key value pairs:
+
+# defaultvar: something
+
+
+#
+# or more complex:
+
+# another_var:
+#   name: install something
+#   install:
+#     - things

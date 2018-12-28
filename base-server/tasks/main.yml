@@ -1,0 +1,62 @@
+---
+# This playbook
+
+- name: Create folder hierachy
+  win_file:
+    path: "{{ item }}"
+    state: directory  
+  loop:
+    - 'C:\Admin\'
+    - 'C:\Installs\'
+    - 'C:\Services\'
+    - 'C:\Services(x86)\'
+
+- name: Enable and remove dedicated ACE's
+  win_acl_inheritance:
+    path: C:\Admin
+    state: present
+    reorganize: yes
+
+- name: Add FullControl to admin folder for local admins
+  win_acl:
+    path: C:\Admin
+    user: BUILTIN\Administrators
+    rights: FullControl
+    type: allow
+
+- name: Set performance plan to High
+  win_power_plan:
+      name: high performance
+
+- name: Install PSGallery modules
+  win_psmodule:
+    name: "{{ item }}"
+    url: 'http://192.168.0.180:8081/repository/powershell/'
+    repository: 'LocalRepository'
+    state: present
+  loop:
+    - ComputerManagementDsc
+    - NetworkingDsc
+    - xRemoteDesktopAdmin
+    - CertificateDsc
+    - xActiveDirectory
+    - xPendingReboot
+    - WSManDsc
+    - mtxServerConfig
+
+- name: Set PS Execution policy to remotesigned
+  win_dsc:
+      resource_name: PowerShellExecutionPolicy
+      ExecutionPolicyScope: LocalMachine
+      ExecutionPolicy: RemoteSigned
+
+- name: Use win_dsc with PsDscRunAsCredential to run as a different user
+  win_dsc:
+    resource_name: Registry
+    Ensure: Present
+    Key: HKEY_CURRENT_USER\ExampleKey
+    ValueName: TestValue
+    ValueData: TestData
+    PsDscRunAsCredential_username: '{{ ansible_user }}'
+    PsDscRunAsCredential_password: '{{ ansible_password }}'
+  no_log: yes

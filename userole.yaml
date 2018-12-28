@@ -1,0 +1,6 @@
+---
+- name: Install base-server role
+  hosts: all
+  gather_facts: no
+  roles:
+    -base-server
