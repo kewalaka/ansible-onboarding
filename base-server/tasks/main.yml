@@ -17,12 +17,12 @@
     state: absent
     reorganize: no
 
-- name: Add FullControl to admin folder for local admins
+- name: Remove read access to admin folder for local users
   win_acl:
     path: C:\Admin
-    user: BUILTIN\Administrators
-    rights: FullControl
-    type: allow
+    user: BUILTIN\Users
+    rights: Read
+    type: deny
 
 - name: Set performance plan to High
   win_power_plan:
