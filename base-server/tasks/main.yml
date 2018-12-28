@@ -24,7 +24,7 @@
     rights: "{{ item.rights }}"
     type: allow # or deny
   loop:
-    - { user: 'NTAUTHORITY\SYSTEM', rights: 'FullControl'}
+    - { user: 'NT AUTHORITY\SYSTEM', rights: 'FullControl'}
     - { user: 'BUILTIN\Administrators', rights: 'FullControl'}
 
 - name: Set performance plan to High
