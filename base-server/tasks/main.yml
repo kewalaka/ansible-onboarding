@@ -36,13 +36,6 @@
     state: present
   loop:
     - ComputerManagementDsc
-    - NetworkingDsc
-    - xRemoteDesktopAdmin
-    - CertificateDsc
-    - xActiveDirectory
-    - xPendingReboot
-    - WSManDsc
-    - mtxServerConfig
 
 - name: Set PS Execution policy to remotesigned
   win_dsc:
