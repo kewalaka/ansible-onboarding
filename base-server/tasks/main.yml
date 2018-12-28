@@ -11,13 +11,15 @@
     - 'C:\Services\'
     - 'C:\Services(x86)\'
 
-- name: Disable inheritence and remove ACE's
+- name: Disable inheritence and remove inherited ACE's
   win_acl_inheritance:
     path: C:\Admin
     state: absent
     reorganize: no # yes - would copy the ACE
 
-- name: Allow only built in admins & system (this causes fun with UAC)
+  # interesting thought here - this can't doesn't really provide compliance
+  # nothing to stop someone adding extra ACEs
+- name: Allow only built in admins & system 
   win_acl:
     path: C:\Admin
     user: "{{ item.user }}"
