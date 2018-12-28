@@ -15,14 +15,14 @@
   win_acl_inheritance:
     path: C:\Admin
     state: absent
-    reorganize: no
+    reorganize: yes
 
 - name: Remove read access to admin folder for local users
   win_acl:
     path: C:\Admin
     user: BUILTIN\Users
     rights: Read
-    type: deny
+    type: absent
 
 - name: Set performance plan to High
   win_power_plan:
