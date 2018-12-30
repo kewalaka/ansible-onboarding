@@ -52,7 +52,7 @@
     #ForestMode:
     #DomainMode:
     module_version: "{{ dsc_xactivedirectoryver }}"
-    register: InstallAD
+  register: InstallAD
 # hide PS credentials
 #  no_log: yes    
 
