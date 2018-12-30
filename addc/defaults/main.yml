@@ -1,0 +1,10 @@
+# domain details
+addc_domainname: 'kewalaka.nz'
+addc_domainnbtname: 'kewalaka'
+addc_firstsite: 'NewPlymouth'
+
+# credentials - passwords should be vault'ed.. TODO.
+addc_domainadmin: 'kwadmin'
+addc_domainadminpw: 'APassword2Share'
+addc_safemodeadmin: 'sfadmin'
+addc_safemodeadminpw: 'APassword2Share'

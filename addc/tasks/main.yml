@@ -1,0 +1,59 @@
+---
+- name: Install PSGallery modules
+  win_psmodule:
+    name: "{{ item }}"
+    url: 'http://192.168.0.180:8081/repository/powershell/'
+    repository: 'LocalRepository'
+    state: present
+  loop:
+    - xActiveDirectory
+
+- name: Install pre-requisites (+ AD PowerShell cmdlets)
+  win_feature:
+    name: 
+     - AD-Domain-Services
+     - RSAT-AD-PowerShell
+     # TODO fact check...
+     # do we need this on a core install?  
+     # probably.. there are some CLI tools here-in
+     - RSAT-ADDS-Tools
+
+# this will influence what the built in domain admin account will be called
+- name: change the local admin account name
+  win_security_policy:
+    section: System Access
+    key: NewAdministratorName
+    value: 'kwadmin'
+
+- name: Install AD
+  win_dsc:
+    resource_name: xADDomain
+    #ParentDomainName: "{{ addc_parentdomainname }}"
+    DomainName: "{{ addc_domainname }}"
+    DomainNetBIOSName: "{{ addc_domainnbtname }}"
+    # Note: These are NOT used during domain creation. 
+    # During an Active Directory deployment the local administrator credentials 
+    # are used for the domain administrator.
+    DomainAdministratorCredential_username: "{{ addc_domainadmin }}"
+    DomainAdministratorCredential_password: "{{ addc_domainadminpw }}"
+    SafemodeAdministratorPassword_username: "{{ addc_safemodeadmin }}"
+    SafemodeAdministratorPassword_password: "{{ addc_safemodeadminpw }}"
+    #DnsDelegationCredential: "{{ dnsdelegation_cred }}"
+    #DatabasePath: "{{ addc_databasepath }}"
+    #LogPath: "{{ addc_databaselogpath }}"
+    #SysVolPath: "{{ addc_sysvolpath }}"
+    #ForestMode:
+    #DomainMode:
+    module_version: "{{ dsc_xactivedirectoryver }}"
+    register: InstallAD
+
+- name: Reboot after AD install
+  win_reboot:
+  when: InstallAD.changed
+
+- name: Create first AD site
+  win_dsc:
+    resource_name: xADReplicationSite
+    name: "{{ addc_firstsite }}"
+    RenameDefaultFirstSiteName: true
+    module_version: "{{ dsc_xactivedirectoryver }}"

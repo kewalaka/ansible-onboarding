@@ -1,0 +1,7 @@
+---
+- name: Install ActiveDirectory
+  hosts: all
+  gather_facts: no
+  roles:
+    # TODO - how to pass in environmental specifics?
+    - addc

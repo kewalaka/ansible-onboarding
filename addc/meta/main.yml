@@ -1,26 +1,6 @@
-# I know this can be done with ansible-galaxy init - but useful when authoring on Windows...
-# e.g. to make a base-server role
-# . .\New-AnsibleRole.ps1 base-server
-param (
-  [Parameter(Mandatory=$true)]
-  $rolename
-)
-
-New-Item ".\$rolename\defaults\main.yml" -Force
-New-Item ".\$rolename\files\.gitkeep" -Force
-New-Item ".\$rolename\handlers\main.yml" -Force
-New-Item ".\$rolename\meta\main.yml" -Force
-New-Item ".\$rolename\tasks\main.yml" -Force
-New-Item ".\$rolename\templates\.gitkeep" -Force
-New-Item ".\$rolename\tests\inventory" -Force
-New-Item ".\$rolename\tests\test.yml" -Force
-New-Item ".\$rolename\vars\main.yml" -Force
-New-Item ".\$rolename\README.md" -Force
-
-$metadata = @"
 
 galaxy_info:
-  role_name: $rolename
+  role_name: addc
   author: kewalaka
   description: 
   company: 
@@ -67,6 +47,3 @@ dependencies: []
   # List your role dependencies here, one per line. Be sure to remove the '[]' above,
   # if you add dependencies to this list.
 
-"@
-
-$metadata | Add-Content -Path ".\$rolename\meta\main.yml"
