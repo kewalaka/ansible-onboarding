@@ -23,7 +23,14 @@
   win_security_policy:
     section: System Access
     key: NewAdministratorName
-    value: 'kwadmin'
+    value: "{{ addc_domainadmin }}"
+
+# make sure it is complex enough, otherwise Computer Says No when installing AD.
+# Err#43 - https://docs.microsoft.com/en-us/windows-server/identity/ad-ds/deploy/troubleshooting-domain-controller-deployment
+- name: Set password of local admin account
+  win_user:
+    name: "{{ addc_domainadmin }}"
+    password: "{{ addc_domainadminpw }}"
 
 - name: Install AD
   win_dsc:
@@ -46,6 +53,8 @@
     #DomainMode:
     module_version: "{{ dsc_xactivedirectoryver }}"
     register: InstallAD
+# hide PS credentials
+  no_log: yes    
 
 - name: Reboot after AD install
   win_reboot:
