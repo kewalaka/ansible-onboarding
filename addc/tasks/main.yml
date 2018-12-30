@@ -54,7 +54,7 @@
     module_version: "{{ dsc_xactivedirectoryver }}"
     register: InstallAD
 # hide PS credentials
-  no_log: yes    
+#  no_log: yes    
 
 - name: Reboot after AD install
   win_reboot:
