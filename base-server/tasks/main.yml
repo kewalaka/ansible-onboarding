@@ -61,3 +61,23 @@
     PsDscRunAsCredential_password: '{{ ansible_password }}'
   # should usually set this - but want to see what credentials were used
   #no_log: yes
+
+# example showing with_items
+- name: apply ramsomeware patch disable smb v1
+  win_regedit:
+    path: '{{ item.path }}'
+    name: '{{item.name}}'
+    data: '{{ item.data}}'
+    type: '{{ item.type }}'
+    state: present
+  with_items:
+    - path: 'HKLM:\SYSTEM\CurrentControlSet\Services\LanmanServer\Parameters'
+      name: 'SMB1'
+      data: '0'
+      type: 'dword'      
+  register: apply_patch_ramsomeware
+
+- name: Reboot if needed
+  win_shell: Restart-Computer -Force
+  when: apply_patch_ramsomeware.changed
+  ignore_errors: yes
