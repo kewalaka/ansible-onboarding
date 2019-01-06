@@ -62,7 +62,7 @@
   # should usually set this - but want to see what credentials were used
   #no_log: yes
 
-# example showing with_items
+# example showing with_items TODO should be replaced with loop as docs state this is preferred since v2.5
 - name: apply ramsomeware patch disable smb v1
   win_regedit:
     path: '{{ item.path }}'

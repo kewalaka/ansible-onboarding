@@ -13,3 +13,7 @@ addc_safemodeadminpw: 'APassword2Share'
 addc_databasepath: 'C:\Windows\NTDS'
 addc_databaselogpath: 'C:\Windows\NTDS'
 addc_sysvolpath: 'C:\Windows\SYSVOL'
+
+# reverse DNS stubs
+addc_reverse_dns_zones:
+  - '1.168.192.in-addr.arpa'

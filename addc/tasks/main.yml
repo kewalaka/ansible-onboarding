@@ -77,3 +77,11 @@
     IPAddresses:
       - '1.1.1.1'
       - '8.8.8.8'
+
+- name: Set reverse DNS entries
+  win_dsc:
+    resource_name: xDnsServerADZone
+    Name: {{ item }}
+    DynamicUpdate: 'Secure'
+    ReplicationScope: 'Forest'
+  loop: "{{ addc_reverse_dns_zones }}"
