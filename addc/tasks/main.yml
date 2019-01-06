@@ -2,11 +2,8 @@
 - name: Install PSGallery modules
   win_psmodule:
     name: "{{ item }}"
-{% if nuget_repository_url != 'https://www.powershellgallery.com/api/v2' %}
-{% else %}
-    repository: '{{ nuget_repository_repo }}'
-    url: '{{ nuget_repository_url }}'
-{% endif %}
+    repository: {{ nuget_repository_repo | default(omit) }}
+    url: {{ nuget_repository_url | default(omit) }}
     state: present
   loop:
     - xActiveDirectory
