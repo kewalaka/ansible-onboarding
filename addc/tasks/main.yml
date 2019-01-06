@@ -2,7 +2,7 @@
 - name: Install PSGallery modules
   win_psmodule:
     name: "{{ item }}"
-    url: 'http://192.168.0.180:8081/repository/powershell/'
+    url: '{{ nuget_repository_url }}'
     repository: 'LocalRepository'
     state: present
   loop:

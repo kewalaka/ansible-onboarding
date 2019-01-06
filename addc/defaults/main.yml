@@ -8,3 +8,6 @@ addc_domainadmin: 'kwadmin'
 addc_domainadminpw: 'APassword2Share'
 addc_safemodeadmin: 'sfadmin'
 addc_safemodeadminpw: 'APassword2Share'
+
+# where to get resources from
+nuget_repository_url: 'https://www.powershellgallery.com/api/v2'

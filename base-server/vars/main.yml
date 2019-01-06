@@ -1,0 +1,2 @@
+#nuget_repository_url: 'http://192.168.0.180:8081/repository/powershell/'
+nuget_repository_url: 'https://www.powershellgallery.com/api/v2'
