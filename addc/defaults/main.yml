@@ -11,3 +11,8 @@ addc_safemodeadminpw: 'APassword2Share'
 
 # where to get resources from
 nuget_repository_url: 'https://www.powershellgallery.com/api/v2'
+
+# location of AD database, log & SYSVOL
+addc_databasepath: 'C:\Windows\NTDS'
+addc_databaselogpath: 'C:\Windows\NTDS'
+addc_sysvolpath: 'C:\Windows\SYSVOL'

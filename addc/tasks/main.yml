@@ -2,8 +2,11 @@
 - name: Install PSGallery modules
   win_psmodule:
     name: "{{ item }}"
+{% if nuget_repository_url != 'https://www.powershellgallery.com/api/v2' %}
+{% else %}
+    repository: '{{ nuget_repository_repo }}'
     url: '{{ nuget_repository_url }}'
-    repository: 'LocalRepository'
+{% endif %}
     state: present
   loop:
     - xActiveDirectory
@@ -46,9 +49,9 @@
     SafemodeAdministratorPassword_username: "{{ addc_safemodeadmin }}"
     SafemodeAdministratorPassword_password: "{{ addc_safemodeadminpw }}"
     #DnsDelegationCredential: "{{ dnsdelegation_cred }}"
-    #DatabasePath: "{{ addc_databasepath }}"
-    #LogPath: "{{ addc_databaselogpath }}"
-    #SysVolPath: "{{ addc_sysvolpath }}"
+    DatabasePath: "{{ addc_databasepath }}"
+    LogPath: "{{ addc_databaselogpath }}"
+    SysVolPath: "{{ addc_sysvolpath }}"
     #ForestMode:
     #DomainMode:
     module_version: "{{ dsc_xactivedirectoryver }}"
