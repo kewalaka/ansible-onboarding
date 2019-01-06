@@ -66,4 +66,5 @@
     resource_name: xADReplicationSite
     name: "{{ addc_firstsite }}"
     RenameDefaultFirstSiteName: true
-    module_version: "{{ dsc_xactivedirectoryver }}"
+    # TODO need to fix win_psmodule first to make sure it pulls the correct version
+    #module_version: "{{ dsc_xactivedirectoryver }}"
