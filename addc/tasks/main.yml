@@ -51,7 +51,8 @@
     SysVolPath: "{{ addc_sysvolpath }}"
     #ForestMode:
     #DomainMode:
-    module_version: "{{ dsc_xactivedirectoryver }}"
+    # TODO need to fix win_psmodule first to make sure it pulls the correct version
+    #module_version: "{{ dsc_xactivedirectoryver }}"
   register: InstallAD
 # hide PS credentials
 #  no_log: yes    
