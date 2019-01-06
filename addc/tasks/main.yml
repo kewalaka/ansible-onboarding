@@ -2,8 +2,8 @@
 - name: Install PSGallery modules
   win_psmodule:
     name: "{{ item }}"
-    repository: {{ nuget_repository_repo | default(omit) }}
-    url: {{ nuget_repository_url | default(omit) }}
+    repository: "{{ nuget_repository_repo | default(omit) }}"
+    url: "{{ nuget_repository_url | default(omit) }}"
     state: present
   loop:
     - xActiveDirectory
