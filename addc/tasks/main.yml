@@ -7,6 +7,7 @@
     state: present
   loop:
     - xActiveDirectory
+    - xDNSServer
 
 - name: Install pre-requisites (+ AD PowerShell cmdlets)
   win_feature:
@@ -55,7 +56,7 @@
     #module_version: "{{ dsc_xactivedirectoryver }}"
   register: InstallAD
 # hide PS credentials
-#  no_log: yes    
+  no_log: yes    
 
 - name: Reboot after AD install
   win_reboot:
@@ -68,3 +69,11 @@
     RenameDefaultFirstSiteName: true
     # TODO need to fix win_psmodule first to make sure it pulls the correct version
     #module_version: "{{ dsc_xactivedirectoryver }}"
+
+- name: Set DNS forwarders
+  win_dsc:
+    resource_name: xDnsServerForwarder
+    IsSingleInstance: 'Yes'
+    IPAddresses:
+      - '1.1.1.1'
+      - '8.8.8.8'
